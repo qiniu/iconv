@@ -4,7 +4,7 @@
 
 2013-03-11
 
-Issue [#2](https://github.com/qiniu/iconv/pull/2):
+Issue [#3](https://github.com/qiniu/iconv/pull/3):
 
 - Travis-CI 支持
 
