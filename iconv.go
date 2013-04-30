@@ -3,6 +3,7 @@
 //
 package iconv
 
+// #cgo darwin LDFLAGS: -liconv
 // #include <iconv.h>
 // #include <errno.h>
 import "C"
