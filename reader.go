@@ -45,7 +45,10 @@ func (r *Reader) fetch() error {
 	if r.m > 0 {
 		copy(r.cnvbuf[:r.m], r.cnvbuf[m-r.m:m])
 	}
-	if r.to == 0 { return io.EOF }
+	if r.to == 0 {
+		if r.err == nil { return io.EOF }
+		return r.err
+	}
 	return nil
 }
 
