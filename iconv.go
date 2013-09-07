@@ -33,7 +33,7 @@ func Open(tocode string, fromcode string) (cd Iconv, err error) {
 	fromcode1 := C.CString(fromcode)
 	defer C.free(unsafe.Pointer(fromcode1))
 
-	ret, err := C.iconv_open(tocode1, fromcode)
+	ret, err := C.iconv_open(tocode1, fromcode1)
 	if err != nil {
 		return
 	}
