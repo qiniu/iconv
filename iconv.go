@@ -28,10 +28,10 @@ type Iconv struct {
 func Open(tocode string, fromcode string) (cd Iconv, err error) {
 
 	tocode1 := C.CString(tocode)
-	defer C.free(tocode1)
+	defer C.free(unsafe.Pointer(tocode1))
 
 	fromcode1 := C.CString(fromcode)
-	defer C.free(fromcode1)
+	defer C.free(unsafe.Pointer(fromcode1))
 
 	ret, err := C.iconv_open(tocode1, fromcode)
 	if err != nil {
