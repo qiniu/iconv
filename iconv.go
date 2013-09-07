@@ -5,6 +5,7 @@ package iconv
 
 // #cgo darwin LDFLAGS: -liconv
 // #include <iconv.h>
+// #include <stdlib.h>
 // #include <errno.h>
 import "C"
 
@@ -25,7 +26,14 @@ type Iconv struct {
 }
 
 func Open(tocode string, fromcode string) (cd Iconv, err error) {
-	ret, err := C.iconv_open(C.CString(tocode), C.CString(fromcode))
+
+	tocode1 := C.CString(tocode)
+	defer C.free(unsafe.Pointer(tocode1))
+
+	fromcode1 := C.CString(fromcode)
+	defer C.free(unsafe.Pointer(fromcode1))
+
+	ret, err := C.iconv_open(tocode1, fromcode1)
 	if err != nil {
 		return
 	}
@@ -34,6 +42,7 @@ func Open(tocode string, fromcode string) (cd Iconv, err error) {
 }
 
 func (cd Iconv) Close() error {
+
 	_, err := C.iconv_close(cd.Handle)
 	return err
 }
