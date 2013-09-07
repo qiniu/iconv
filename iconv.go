@@ -56,7 +56,7 @@ func (cd Iconv) Conv(b []byte, outbuf []byte) (out []byte, inleft int, err error
 	}
 
 	w := bytes.NewBuffer(nil)
-	w.Write(out)
+	w.Write(outbuf[:outn])
 
 	inleft, err = cd.DoWrite(w, b[len(b)-inleft:], inleft, outbuf)
 	out = w.Bytes()
