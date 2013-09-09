@@ -1,6 +1,5 @@
----
 iconv: libiconv for go
----
+======
 
 [![Build Status](https://travis-ci.org/qiniu/iconv.png?branch=master)](https://travis-ci.org/qiniu/iconv)
 
