@@ -1,7 +1,7 @@
 iconv: libiconv for go
 ======
 
-[![Build Status](https://travis-ci.org/qiniu/iconv.png?branch=master)](https://travis-ci.org/qiniu/iconv)
+[![Build Status](https://travis-ci.org/qiniu/iconv.png?branch=master)](https://travis-ci.org/qiniu/iconv) [![Build Status](https://drone.io/github.com/qiniu/iconv/status.png)](https://drone.io/github.com/qiniu/iconv/latest)
 
 ![logo](http://qiniutek.com/images/logo-2.png)
 
