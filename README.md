@@ -9,6 +9,9 @@ iconv is a libiconv wrapper for go. libiconv Convert string to requested charact
 
 iconv project's homepage is: https://github.com/qiniu/iconv
 
+# Document
+
+See http://godoc.org/github.com/qiniu/iconv
 
 # Install
 
