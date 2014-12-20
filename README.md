@@ -21,6 +21,8 @@ go get github.com/qiniu/iconv
 ## Convert string
 
 ```go
+package main
+
 import (
 	"fmt"
 	"github.com/qiniu/iconv"
@@ -28,7 +30,7 @@ import (
 
 func main() {
 
-	cd, err := iconv.Open("gbk", "utf-8")
+	cd, err := iconv.Open("gbk", "utf-8") // convert utf-8 to gbk
 	if err != nil {
 		fmt.Println("iconv.Open failed!")
 		return
@@ -44,6 +46,8 @@ func main() {
 ## Output to io.Writer
 
 ```go
+package main
+
 import (
 	"fmt"
 	"github.com/qiniu/iconv"
@@ -51,7 +55,7 @@ import (
 
 func main() {
 
-	cd, err := iconv.Open("gbk", "utf-8")
+	cd, err := iconv.Open("gbk", "utf-8") // convert utf-8 to gbk
 	if err != nil {
 		fmt.Println("iconv.Open failed!")
 		return
@@ -72,6 +76,8 @@ func main() {
 ## Input from io.Reader
 
 ```go
+package main
+
 import (
 	"fmt"
 	"io"
@@ -81,7 +87,7 @@ import (
 
 func main() {
 
-	cd, err := iconv.Open("utf-8", "gbk") // gbk => utf8
+	cd, err := iconv.Open("utf-8", "gbk") // convert gbk to utf8
 	if err != nil {
 		fmt.Println("iconv.Open failed!")
 		return
