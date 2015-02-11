@@ -50,7 +50,7 @@ func (cd Iconv) Close() error {
 func (cd Iconv) Conv(b []byte, outbuf []byte) (out []byte, inleft int, err error) {
 
 	outn, inleft, err := cd.Do(b, len(b), outbuf)	
-	if err == nil && err != E2BIG {
+	if err == nil || err != E2BIG {
 		out = outbuf[:outn]
 		return
 	}
