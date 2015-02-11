@@ -3,7 +3,10 @@
 //
 package iconv
 
-// #cgo darwin LDFLAGS: -liconv
+// #cgo darwin  LDFLAGS: -liconv
+// #cgo linux   LDFLAGS: -liconv
+// #cgo freebsd LDFLAGS: -liconv
+// #cgo windows LDFLAGS: -liconv
 // #include <iconv.h>
 // #include <stdlib.h>
 // #include <errno.h>
