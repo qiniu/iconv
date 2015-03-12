@@ -13,6 +13,8 @@ iconv project's homepage is: https://github.com/qiniu/iconv
 
 See http://godoc.org/github.com/qiniu/iconv
 
+Note: Open returns a conversion descriptor cd, cd contains a conversion state and can not be used in multiple threads simultaneously.
+
 # Install
 
 ```
