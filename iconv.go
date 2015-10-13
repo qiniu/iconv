@@ -9,6 +9,12 @@ package iconv
 // #include <iconv.h>
 // #include <stdlib.h>
 // #include <errno.h>
+//
+// size_t bridge_iconv(iconv_t cd,
+//		       char *inbuf, size_t *inbytesleft,
+//                     char *outbuf, size_t *outbytesleft) {
+//   return iconv(cd, &inbuf, inbytesleft, &outbuf, outbytesleft);
+// }
 import "C"
 
 import (
@@ -83,9 +89,9 @@ func (cd Iconv) Do(inbuf []byte, in int, outbuf []byte) (out, inleft int, err er
 
 	outbytes := C.size_t(len(outbuf))
 	outptr := &outbuf[0]
-	_, err = C.iconv(cd.Handle,
-		(**C.char)(unsafe.Pointer(&inptr)), &inbytes,
-		(**C.char)(unsafe.Pointer(&outptr)), &outbytes)
+	_, err = C.bridge_iconv(cd.Handle,
+		(*C.char)(unsafe.Pointer(inptr)), &inbytes,
+		(*C.char)(unsafe.Pointer(outptr)), &outbytes)
 
 	out = len(outbuf) - int(outbytes)
 	inleft = int(inbytes)
@@ -104,9 +110,9 @@ func (cd Iconv) DoWrite(w io.Writer, inbuf []byte, in int, outbuf []byte) (inlef
 	for inbytes > 0 {
 		outbytes := C.size_t(len(outbuf))
 		outptr := &outbuf[0]
-		_, err = C.iconv(cd.Handle,
-			(**C.char)(unsafe.Pointer(&inptr)), &inbytes,
-			(**C.char)(unsafe.Pointer(&outptr)), &outbytes)
+		_, err = C.bridge_iconv(cd.Handle,
+			(*C.char)(unsafe.Pointer(inptr)), &inbytes,
+			(*C.char)(unsafe.Pointer(outptr)), &outbytes)
 		w.Write(outbuf[:len(outbuf)-int(outbytes)])
 		if err != nil && err != E2BIG {
 			return int(inbytes), err
