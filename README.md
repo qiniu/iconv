@@ -18,7 +18,7 @@ Note: Open returns a conversion descriptor cd, cd contains a conversion state an
 # Install
 
 ```
-go get github.com/qiniu/iconv
+go get gopkg.in/iconv.v1
 ```
 
 # Example
@@ -30,7 +30,7 @@ package main
 
 import (
 	"fmt"
-	"github.com/qiniu/iconv"
+	"import "gopkg.in/iconv.v1""
 )
 
 func main() {
@@ -55,7 +55,7 @@ package main
 
 import (
 	"fmt"
-	"github.com/qiniu/iconv"
+	"import "gopkg.in/iconv.v1""
 )
 
 func main() {
@@ -87,7 +87,7 @@ import (
 	"fmt"
 	"io"
 	"os"
-	"github.com/qiniu/iconv"
+	"import "gopkg.in/iconv.v1""
 )
 
 func main() {
