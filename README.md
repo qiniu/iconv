@@ -11,9 +11,11 @@ Fork from : https://github.com/qiniu/iconv.
 
 why go-iconv ?
 
+support gopkg.in API
+
 merge new pull request faster:
 
-for example supoort golang 1.6.x etc.
+for example support golang 1.6.x etc.
 
 # Document
 
