@@ -1,2 +1,3 @@
 language: go
-sudo: false
+script:
+	- sudo apt-get install libiconv-hook-dev
