@@ -6,19 +6,29 @@ iconv: libiconv for go
 ![logo](http://qiniutek.com/images/logo-2.png)
 
 iconv is a libiconv wrapper for go. libiconv Convert string to requested character encoding.
+iconv project's homepage is: https://github.com/go-iconv/iconv.
+Fork from : https://github.com/qiniu/iconv.
 
-iconv project's homepage is: https://github.com/qiniu/iconv
+why go-iconv ?
+
+support gopkg.in API
+
+merge new pull request faster:
+
+for example support golang 1.6.x etc.
 
 # Document
 
-See http://godoc.org/github.com/qiniu/iconv
+See http://godoc.org/gopkg.in/iconv.v1
+
+Note: Open returns a conversion descriptor cd, cd contains a conversion state and can not be used in multiple threads simultaneously.
 
 Note: Open returns a conversion descriptor cd, cd contains a conversion state and can not be used in multiple threads simultaneously.
 
 # Install
 
 ```
-go get github.com/qiniu/iconv
+go get gopkg.in/iconv.v1
 ```
 
 # Example
@@ -30,7 +40,7 @@ package main
 
 import (
 	"fmt"
-	"github.com/qiniu/iconv"
+	"import "gopkg.in/iconv.v1""
 )
 
 func main() {
@@ -55,7 +65,7 @@ package main
 
 import (
 	"fmt"
-	"github.com/qiniu/iconv"
+	"import "gopkg.in/iconv.v1""
 )
 
 func main() {
@@ -87,7 +97,7 @@ import (
 	"fmt"
 	"io"
 	"os"
-	"github.com/qiniu/iconv"
+	"import "gopkg.in/iconv.v1""
 )
 
 func main() {
