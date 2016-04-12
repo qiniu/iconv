@@ -1,5 +1,9 @@
 #CHANGELOG
 
+## v1.1.0
+- support golang 1.6.x
+- support gopkg API
+
 ## v1.0.03
 
 2013-09-07 Issue [#13](https://github.com/qiniu/iconv/pull/13), [#14](https://github.com/qiniu/iconv/pull/14):

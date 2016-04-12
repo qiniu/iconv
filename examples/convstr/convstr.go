@@ -2,7 +2,7 @@ package main
 
 import (
 	"fmt"
-	"github.com/qiniu/iconv"
+	"gopkg.in/iconv.v1"
 )
 
 func main() {
@@ -13,10 +13,9 @@ func main() {
 		return
 	}
 	defer cd.Close()
-
+	fmt.Println("go")
 	gbk := cd.ConvString(
-`		你好，世界！你好，世界！你好，世界！你好，世界！
+		`		你好，世界！你好，世界！你好，世界！你好，世界！
 		你好，世界！你好，世界！你好，世界！你好，世界！`)
 	fmt.Println(gbk)
 }
-
