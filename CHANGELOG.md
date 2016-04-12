@@ -1,6 +1,7 @@
 #CHANGELOG
 
-## v1.1.0
+## v1.1.01
+
 - support golang 1.6.x
 - support gopkg API
 
