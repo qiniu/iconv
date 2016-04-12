@@ -2,9 +2,9 @@ package main
 
 import (
 	"fmt"
+	"gopkg.in/iconv.v1"
 	"io"
 	"os"
-	"github.com/qiniu/iconv"
 )
 
 func main() {
@@ -15,13 +15,12 @@ func main() {
 		return
 	}
 	defer cd.Close()
-	
+
 	r := iconv.NewReader(cd, os.Stdin, 0)
-	
+
 	_, err = io.Copy(os.Stdout, r)
 	if err != nil {
 		fmt.Println("\nio.Copy failed:", err)
 		return
 	}
 }
-

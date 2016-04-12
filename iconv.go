@@ -3,17 +3,26 @@
 //
 package iconv
 
-// #cgo darwin LDFLAGS: -liconv
+// #cgo darwin  LDFLAGS: -liconv
+// #cgo freebsd LDFLAGS: -liconv
+// #cgo linux   LDFLAGS: -liconv
+// #cgo windows LDFLAGS: -liconv
 // #include <iconv.h>
 // #include <stdlib.h>
 // #include <errno.h>
+//
+// size_t bridge_iconv(iconv_t cd,
+//		       char *inbuf, size_t *inbytesleft,
+//                     char *outbuf, size_t *outbytesleft) {
+//   return iconv(cd, &inbuf, inbytesleft, &outbuf, outbytesleft);
+// }
 import "C"
 
 import (
-	"io"
-	"unsafe"
 	"bytes"
+	"io"
 	"syscall"
+	"unsafe"
 )
 
 var EILSEQ = syscall.Errno(C.EILSEQ)
@@ -25,6 +34,7 @@ type Iconv struct {
 	Handle C.iconv_t
 }
 
+// Open returns a conversion descriptor cd, cd contains a conversion state and can not be used in multiple threads simultaneously.
 func Open(tocode string, fromcode string) (cd Iconv, err error) {
 
 	tocode1 := C.CString(tocode)
@@ -49,7 +59,7 @@ func (cd Iconv) Close() error {
 
 func (cd Iconv) Conv(b []byte, outbuf []byte) (out []byte, inleft int, err error) {
 
-	outn, inleft, err := cd.Do(b, len(b), outbuf)	
+	outn, inleft, err := cd.Do(b, len(b), outbuf)
 	if err == nil || err != E2BIG {
 		out = outbuf[:outn]
 		return
@@ -71,16 +81,18 @@ func (cd Iconv) ConvString(s string) string {
 
 func (cd Iconv) Do(inbuf []byte, in int, outbuf []byte) (out, inleft int, err error) {
 
-	if in == 0 { return }
-	
+	if in == 0 {
+		return
+	}
+
 	inbytes := C.size_t(in)
 	inptr := &inbuf[0]
 
 	outbytes := C.size_t(len(outbuf))
 	outptr := &outbuf[0]
-	_, err = C.iconv(cd.Handle,
-		(**C.char)(unsafe.Pointer(&inptr)), &inbytes,
-		(**C.char)(unsafe.Pointer(&outptr)), &outbytes)
+	_, err = C.bridge_iconv(cd.Handle,
+		(*C.char)(unsafe.Pointer(inptr)), &inbytes,
+		(*C.char)(unsafe.Pointer(outptr)), &outbytes)
 
 	out = len(outbuf) - int(outbytes)
 	inleft = int(inbytes)
@@ -89,7 +101,9 @@ func (cd Iconv) Do(inbuf []byte, in int, outbuf []byte) (out, inleft int, err er
 
 func (cd Iconv) DoWrite(w io.Writer, inbuf []byte, in int, outbuf []byte) (inleft int, err error) {
 
-	if in == 0 { return }
+	if in == 0 {
+		return
+	}
 
 	inbytes := C.size_t(in)
 	inptr := &inbuf[0]
@@ -97,9 +111,9 @@ func (cd Iconv) DoWrite(w io.Writer, inbuf []byte, in int, outbuf []byte) (inlef
 	for inbytes > 0 {
 		outbytes := C.size_t(len(outbuf))
 		outptr := &outbuf[0]
-		_, err = C.iconv(cd.Handle,
-			(**C.char)(unsafe.Pointer(&inptr)), &inbytes,
-			(**C.char)(unsafe.Pointer(&outptr)), &outbytes)
+		_, err = C.bridge_iconv(cd.Handle,
+			(*C.char)(unsafe.Pointer(inptr)), &inbytes,
+			(*C.char)(unsafe.Pointer(outptr)), &outbytes)
 		w.Write(outbuf[:len(outbuf)-int(outbytes)])
 		if err != nil && err != E2BIG {
 			return int(inbytes), err
@@ -108,4 +122,3 @@ func (cd Iconv) DoWrite(w io.Writer, inbuf []byte, in int, outbuf []byte) (inlef
 
 	return 0, nil
 }
-
