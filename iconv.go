@@ -68,14 +68,21 @@ func (cd Iconv) Conv(b []byte, outbuf []byte) (out []byte, inleft int, err error
 	w.Write(outbuf[:outn])
 
 	inleft, err = cd.DoWrite(w, b[len(b)-inleft:], inleft, outbuf)
-	out = w.Bytes()
+	if err != nil {
+		return
+	} else {
+		out = w.Bytes()
+	}
 	return
 }
 
 func (cd Iconv) ConvString(s string) string {
 	var outbuf [512]byte
-	s1, _, _ := cd.Conv([]byte(s), outbuf[:])
-	return string(s1)
+	if s1, _, err := cd.Conv([]byte(s), outbuf[:]); err != nil {
+		return ""
+	} else {
+		return string(s1)
+	}
 }
 
 func (cd Iconv) Do(inbuf []byte, in int, outbuf []byte) (out, inleft int, err error) {
