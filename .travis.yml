@@ -1,2 +1,10 @@
 language: go
 sudo: false
+install:
+  - export QINIU_SRC=$HOME/gopath/src
+  - mkdir -p $QINIU_SRC/gopkg.in
+  - mv $QINIU_SRC/github.com/qiniu/iconv $QINIU_SRC/gopkg.in/iconv.v1
+  - export TRAVIS_BUILD_DIR=$QINIU_SRC/gopkg.in/iconv.v1
+script:
+  - cd $TRAVIS_BUILD_DIR
+  - go install -v ./...
