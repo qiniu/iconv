@@ -1,4 +1,5 @@
 language: go
+sudo: false
 install:
   - export QINIU_SRC=$HOME/gopath/src
   - mkdir -p $QINIU_SRC/gopkg.in
