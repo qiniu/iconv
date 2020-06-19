@@ -112,9 +112,10 @@ func (cd Iconv) DoWrite(w io.Writer, inbuf []byte, in int, outbuf []byte) (inlef
 	}
 
 	inbytes := C.size_t(in)
-	inptr := &inbuf[0]
 
 	for inbytes > 0 {
+		in = int(inbytes)
+		inptr := &inbuf[len(inbuf)-in]
 		outbytes := C.size_t(len(outbuf))
 		outptr := &outbuf[0]
 		_, err = C.bridge_iconv(cd.Handle,
