@@ -82,7 +82,8 @@ func (cd Iconv) Conv(b []byte, outbuf []byte) (out []byte, inleft int, err error
 // ConvString converts string to requested character encoding.
 func (cd Iconv) ConvString(s string) string {
 	var outbuf [512]byte
-	if s1, _, err := cd.Conv([]byte(s), outbuf[:]); err != nil {
+	s1, _, err := cd.Conv([]byte(s), outbuf[:])
+	if err != nil {
 		return ""
 	}
 	return string(s1)
