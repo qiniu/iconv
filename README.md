@@ -15,14 +15,14 @@ support gopkg.in API
 
 # Document
 
-See http://godoc.org/gopkg.in/iconv.v1
+See http://godoc.org/github.com/qiniu/iconv
 
 Note: Open returns a conversion descriptor cd, cd contains a conversion state and can not be used in multiple threads simultaneously.
 
 # Install
 
 ```
-go get gopkg.in/iconv.v1
+go get github.com/qiniu/iconv
 ```
 
 # Example
@@ -34,7 +34,7 @@ package main
 
 import (
 	"fmt"
-	"gopkg.in/iconv.v1"
+	"github.com/qiniu/iconv"
 )
 
 func main() {
@@ -59,7 +59,7 @@ package main
 
 import (
 	"fmt"
-	"gopkg.in/iconv.v1"
+	"github.com/qiniu/iconv"
 )
 
 func main() {
@@ -91,7 +91,7 @@ import (
 	"fmt"
 	"io"
 	"os"
-	"gopkg.in/iconv.v1"
+	"github.com/qiniu/iconv"
 )
 
 func main() {
