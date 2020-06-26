@@ -1,9 +1,14 @@
 iconv: libiconv for go
 ======
 
-[![Build Status](https://travis-ci.org/qiniu/iconv.png?branch=master)](https://travis-ci.org/qiniu/iconv) [![Build Status](https://drone.io/github.com/qiniu/iconv/status.png)](https://drone.io/github.com/qiniu/iconv/latest)
+[![LICENSE](https://img.shields.io/github/license/qiniu/iconv.svg)](https://github.com/qiniu/iconv/blob/master/LICENSE)
+[![Build Status](https://travis-ci.org/qiniu/iconv.svg?branch=master)](https://travis-ci.org/qiniu/iconv)
+[![Go Report Card](https://goreportcard.com/badge/github.com/qiniu/iconv)](https://goreportcard.com/report/github.com/qiniu/iconv)
+[![GitHub release](https://img.shields.io/github/v/tag/qiniu/iconv.svg?label=release)](https://github.com/qiniu/iconv/releases)
+[![Coverage Status](https://codecov.io/gh/qiniu/iconv/branch/master/graph/badge.svg)](https://codecov.io/gh/qiniu/iconv)
+[![GoDoc](https://img.shields.io/badge/Godoc-reference-blue.svg)](https://godoc.org/github.com/qiniu/iconv)
 
-![logo](http://qiniutek.com/images/logo-2.png)
+[![Qiniu Logo](http://open.qiniudn.com/logo.png)](http://www.qiniu.com/)
 
 iconv is a libiconv wrapper for go. libiconv Convert string to requested character encoding.
 iconv project's homepage is: https://github.com/go-iconv/iconv.
@@ -15,14 +20,14 @@ support gopkg.in API
 
 # Document
 
-See http://godoc.org/gopkg.in/iconv.v1
+See http://godoc.org/github.com/qiniu/iconv
 
 Note: Open returns a conversion descriptor cd, cd contains a conversion state and can not be used in multiple threads simultaneously.
 
 # Install
 
 ```
-go get gopkg.in/iconv.v1
+go get github.com/qiniu/iconv
 ```
 
 # Example
@@ -34,7 +39,7 @@ package main
 
 import (
 	"fmt"
-	"gopkg.in/iconv.v1"
+	"github.com/qiniu/iconv"
 )
 
 func main() {
@@ -59,7 +64,7 @@ package main
 
 import (
 	"fmt"
-	"gopkg.in/iconv.v1"
+	"github.com/qiniu/iconv"
 )
 
 func main() {
@@ -91,7 +96,7 @@ import (
 	"fmt"
 	"io"
 	"os"
-	"gopkg.in/iconv.v1"
+	"github.com/qiniu/iconv"
 )
 
 func main() {

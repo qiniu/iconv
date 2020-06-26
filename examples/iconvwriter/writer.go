@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"os"
 
-	"gopkg.in/iconv.v1"
+	"github.com/qiniu/iconv"
 )
 
 func main() {

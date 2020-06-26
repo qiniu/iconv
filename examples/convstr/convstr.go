@@ -2,7 +2,8 @@ package main
 
 import (
 	"fmt"
-	"gopkg.in/iconv.v1"
+
+	"github.com/qiniu/iconv"
 )
 
 func main() {
