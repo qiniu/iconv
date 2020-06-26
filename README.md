@@ -11,12 +11,6 @@ iconv: libiconv for go
 [![Qiniu Logo](http://open.qiniudn.com/logo.png)](http://www.qiniu.com/)
 
 iconv is a libiconv wrapper for go. libiconv Convert string to requested character encoding.
-iconv project's homepage is: https://github.com/go-iconv/iconv.
-Fork from : https://github.com/qiniu/iconv.
-
-why go-iconv?
-
-support gopkg.in API
 
 # Document
 
@@ -119,4 +113,3 @@ func main() {
 	}
 }
 ```
-
