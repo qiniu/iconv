@@ -123,6 +123,9 @@ func TestIconv1(t *testing.T) {
 	var outbuf [512]byte
 	for i, d := range tstData1 {
 		cd, err := Open(d.srcChrTyp, d.dstChrTyp)
+		if err != nil {
+			t.Fatal("Open failed:", err)
+		}
 		b, n, err = cd.Conv([]byte(d.src), outbuf[:])
 		if err != nil {
 			t.Fatalf("Test iconv1 return error non nil: %v", err)

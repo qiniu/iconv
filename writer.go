@@ -5,6 +5,7 @@ import (
 	"syscall"
 )
 
+// Writer represents an auto encoding converting Writer.
 type Writer struct {
 	inbuf    []byte
 	outbuf   []byte
@@ -14,6 +15,7 @@ type Writer struct {
 	autoSync bool
 }
 
+// NewWriter creates a new writer.
 func NewWriter(cd Iconv, output io.Writer, bufSize int, autoSync bool) *Writer {
 	if bufSize < 16 {
 		bufSize = DefaultBufSize
@@ -26,12 +28,14 @@ func NewWriter(cd Iconv, output io.Writer, bufSize int, autoSync bool) *Writer {
 	return &Writer{inbuf, outbuf, cd, output, 0, autoSync}
 }
 
+// Output changes the output stream.
 func (w *Writer) Output(w1 io.Writer) {
 	w.Sync()
 	w.output = w1
 	w.n = 0
 }
 
+// AutoSync sets the autosync flag.
 func (w *Writer) AutoSync(b bool) {
 	w.autoSync = b
 	if !b && w.inbuf == nil {
@@ -39,12 +43,11 @@ func (w *Writer) AutoSync(b bool) {
 	}
 }
 
+// Sync syncs buffered text to output stream.
 func (w *Writer) Sync() error {
-
 	if w.n == 0 {
 		return nil
 	}
-
 	inleft, err := w.cd.DoWrite(w.output, w.inbuf, w.n, w.outbuf)
 	if inleft > 0 {
 		copy(w.inbuf, w.inbuf[w.n-inleft:w.n])
@@ -54,7 +57,6 @@ func (w *Writer) Sync() error {
 }
 
 func (w *Writer) Write(b []byte) (n int, err error) {
-
 	if w.autoSync {
 		var inleft int
 		inleft, err = w.cd.DoWrite(w.output, b, len(b), w.outbuf)
@@ -85,8 +87,8 @@ func (w *Writer) Write(b []byte) (n int, err error) {
 	return n, nil
 }
 
+// WriteString writes a string.
 func (w *Writer) WriteString(b string) (n int, err error) {
-
 	if w.autoSync {
 		var inleft int
 		inleft, err = w.cd.DoWrite(w.output, []byte(b), len(b), w.outbuf)

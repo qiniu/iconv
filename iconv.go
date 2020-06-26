@@ -1,6 +1,5 @@
-//
-// iconv.go
-//
+// Package iconv is golang bindings to libiconv that converts string to
+// requested character encoding.
 package iconv
 
 // #cgo darwin  LDFLAGS: -liconv
@@ -24,18 +23,23 @@ import (
 	"unsafe"
 )
 
-var EILSEQ = syscall.Errno(C.EILSEQ)
-var E2BIG = syscall.Errno(C.E2BIG)
+var (
+	// EILSEQ error
+	EILSEQ = syscall.Errno(C.EILSEQ)
+	// E2BIG error
+	E2BIG = syscall.Errno(C.E2BIG)
+)
 
+// DefaultBufSize const
 const DefaultBufSize = 4096
 
+// Iconv represents an iconv handle.
 type Iconv struct {
 	Handle C.iconv_t
 }
 
 // Open returns a conversion descriptor cd, cd contains a conversion state and can not be used in multiple threads simultaneously.
 func Open(tocode string, fromcode string) (cd Iconv, err error) {
-
 	tocode1 := C.CString(tocode)
 	defer C.free(unsafe.Pointer(tocode1))
 
@@ -50,14 +54,14 @@ func Open(tocode string, fromcode string) (cd Iconv, err error) {
 	return
 }
 
+// Close closes the iconv handle.
 func (cd Iconv) Close() error {
-
 	_, err := C.iconv_close(cd.Handle)
 	return err
 }
 
+// Conv converts text to requested character encoding.
 func (cd Iconv) Conv(b []byte, outbuf []byte) (out []byte, inleft int, err error) {
-
 	outn, inleft, err := cd.Do(b, len(b), outbuf)
 	if err == nil || err != E2BIG {
 		out = outbuf[:outn]
@@ -70,27 +74,25 @@ func (cd Iconv) Conv(b []byte, outbuf []byte) (out []byte, inleft int, err error
 	inleft, err = cd.DoWrite(w, b[len(b)-inleft:], inleft, outbuf)
 	if err != nil {
 		return
-	} else {
-		out = w.Bytes()
 	}
+	out = w.Bytes()
 	return
 }
 
+// ConvString converts string to requested character encoding.
 func (cd Iconv) ConvString(s string) string {
 	var outbuf [512]byte
 	if s1, _, err := cd.Conv([]byte(s), outbuf[:]); err != nil {
 		return ""
-	} else {
-		return string(s1)
 	}
+	return string(s1)
 }
 
+// Do converts text to requested character encoding.
 func (cd Iconv) Do(inbuf []byte, in int, outbuf []byte) (out, inleft int, err error) {
-
 	if in == 0 {
 		return
 	}
-
 	inbytes := C.size_t(in)
 	inptr := &inbuf[0]
 
@@ -105,14 +107,12 @@ func (cd Iconv) Do(inbuf []byte, in int, outbuf []byte) (out, inleft int, err er
 	return
 }
 
+// DoWrite converts text to requested character encoding and writes into a Writer.
 func (cd Iconv) DoWrite(w io.Writer, inbuf []byte, in int, outbuf []byte) (inleft int, err error) {
-
 	if in == 0 {
 		return
 	}
-
 	inbytes := C.size_t(in)
-
 	for inbytes > 0 {
 		in = int(inbytes)
 		inptr := &inbuf[len(inbuf)-in]
@@ -126,6 +126,5 @@ func (cd Iconv) DoWrite(w io.Writer, inbuf []byte, in int, outbuf []byte) (inlef
 			return int(inbytes), err
 		}
 	}
-
 	return 0, nil
 }

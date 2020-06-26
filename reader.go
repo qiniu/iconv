@@ -4,6 +4,7 @@ import (
 	"io"
 )
 
+// Reader represents an auto encoding converting Reader.
 type Reader struct {
 	rdbuf    []byte
 	cnvbuf   []byte
@@ -14,6 +15,7 @@ type Reader struct {
 	err      error
 }
 
+// NewReader creates a new reader.
 func NewReader(cd Iconv, input io.Reader, bufSize int) *Reader {
 	if bufSize < 16 {
 		bufSize = DefaultBufSize
@@ -23,6 +25,7 @@ func NewReader(cd Iconv, input io.Reader, bufSize int) *Reader {
 	return &Reader{rdbuf, cnvbuf, cd, input, 0, 0, 0, nil}
 }
 
+// Input changes the input stream.
 func (r *Reader) Input(r1 io.Reader) {
 	r.input = r1
 	r.from, r.to, r.m = 0, 0, 0
@@ -30,9 +33,7 @@ func (r *Reader) Input(r1 io.Reader) {
 }
 
 func (r *Reader) fetch() error {
-
 	var m int
-
 	if r.err != nil {
 		return r.err
 	}
@@ -61,7 +62,6 @@ func (r *Reader) fetch() error {
 }
 
 func (r *Reader) Read(b []byte) (n int, err error) {
-
 	for {
 		if r.from < r.to {
 			n1 := copy(b, r.rdbuf[r.from:r.to])
